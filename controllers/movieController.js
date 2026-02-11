@@ -32,22 +32,15 @@ const getMovieById = async (req, res) => {
 // @access  Public
 const createMovie = async (req, res) => {
     try {
-        const { name, genre, releaseYear, rating } = req.body;
+        const { name, genre, releaseYear, rating, imageUrl } = req.body;
         const movie = await Movie.create({
             name,
             genre,
             releaseYear,
-            rating
+            rating,
+            imageUrl
         });
-        res.status(201).json(movie); // Changed to return the created object directly or message as preferred. 
-        // Requirements asked for "Movie added!", but returning the object is standard. 
-        // Let's stick to the previous behavior of returning a message or the object? 
-        // The previous code returned "Movie added!". Let's standardize to returning the object for better frontend integration, 
-        // or keep "Movie added!" if strictly following previous pattern. 
-        // Actually, returning the object is much better for the frontend to update state without re-fetching.
-        // I will return the object but consistent with previous behaviour if I can.
-        // Re-reading previous code: it returned `res.json('Movie added!')`.
-        // I will switch to returning the JSON object as it is "Proper API structure".
+        res.status(201).json(movie);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
